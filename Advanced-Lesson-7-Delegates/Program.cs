@@ -19,7 +19,8 @@ namespace Advanced_Lesson_7_Delegates
             //Lesson.SortWithLambdaFunction();
             //Lesson.CarDelegateExample();
             //Lesson.ExamExample();
-            Practice.L7P1_Calculator();
+            //Practice.L7P1_Calculator();
+            Practice.L7P2_StringFormater();
             Console.ReadLine();
         }
     }
