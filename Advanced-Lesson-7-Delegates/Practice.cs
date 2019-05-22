@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Advanced_Lesson_7_Delegates
 {
-    public class Practice
+    public static class Practice
     {
         /// <summary>
         /// L7.P1. Переписать консольный калькулятор с использованием делегатов. 
@@ -54,9 +54,66 @@ namespace Advanced_Lesson_7_Delegates
         /// Замена пробелов на подчеркивание.
         /// Продемонстрировать работу расширяющего метода.
         /// </summary>
+        
+        public delegate string FormatString(string str);
         public static void L7P2_StringFormater()
         {
-
+            List<string> Lst = new List<string>();
+            List<string> LstNew = new List<string>();
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine($"Введите строку {i+1}");
+                Lst.Add(Console.ReadLine());
+            }
+            FormatString formatString;
+            Console.WriteLine("Перевод строки в заглавные буквы - 'Up'");
+            Console.WriteLine("Замена пробелов на подчеркивание - 'Re'");
+            while (true)
+            {
+                formatString = null;
+                switch (Console.ReadLine())
+                {
+                    case "Up":
+                        {
+                            formatString = LettersUp;
+                            break;
+                        }
+                    case "Re":
+                        {
+                            formatString = Replace;
+                            break;
+                        }
+                }
+                if (formatString!=null)
+                {
+                    LstNew = Lst.StringFormater(formatString);
+                    Console.WriteLine($"{LstNew[0]}, {LstNew[1]}, {LstNew[2]}");
+                }
+                else
+                {
+                    Console.WriteLine("Укажите форматирующую функцию");
+                }
+            }
         }
+
+        public static List<string> StringFormater(this List<string> massString, FormatString method)
+        {
+            List<string> LstNew = new List<string>();
+            foreach (var item in massString)
+            {
+                LstNew.Add(method(item));
+            }
+            return LstNew;
+        }
+
+        public static string LettersUp(string str)
+        {
+            return str.ToUpper();
+        }
+        public static string Replace(string str)
+        {
+            return str.Replace(' ', '_');
+        }
+
     }
 }
